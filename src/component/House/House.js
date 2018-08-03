@@ -20,6 +20,7 @@ export default function House(props) {
             {/* Right align and tope div  for delete*/}
             <div>
                 <button onClick ={() => {props.deleteFn(props.house.id)}}> X </button>
+                <button onClick ={() => {props.edit(props.house.id)}}> Edit </button>
             </div>
         </div>
     )

@@ -26,5 +26,13 @@ module.exports = {
         db.delete_house(id).then( results => {
             res.status(200).send(results)
         })
+    },
+    updateHouse: (req, res) => {
+        const db = req.app.get('db')
+        const {name, address, city, state, zip} = req.body
+        const {id} = req.params
+        db.update_house([name, address, city, state, zip, id]).then(results =>{
+            res.status(200).send(results)
+        })
     }
 }

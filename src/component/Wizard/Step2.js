@@ -1,30 +1,33 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import axios from 'axios'
-import {Redirect} from 'react-router'
+// import axios from 'axios'
+// import {Redirect} from 'react-router'
+import {addImg} from '../../ducks/reducer'
+import {connect} from 'react-redux'
 
-export default class Wizard extends Component {
-    constructor() {
-        super()
-        this.state = {
-            img: ""
-        }
-        this.handleInputChange = this.handleInputChange.bind(this)
-    }
+class Step2 extends Component {
+    // constructor() {
+    //     super()
+    //     this.state = {
+    //         img: ""
+    //     }
+    //     this.handleInputChange = this.handleInputChange.bind(this)
+    // }
 
-    handleInputChange (evt){
-        this.setState({
-            [evt.target.name]:evt.target.value
-        })
-    }
+    // handleInputChange (evt){
+    //     this.setState({
+    //         [evt.target.name]:evt.target.value
+    //     })
+    // }
 
-    handleReset = () => {
-        this.setState({
-            img: ""
-        })
-    }
+    // handleReset = () => {
+    //     this.setState({
+    //         img: ""
+    //     })
+    // }
 
     render() {
+        const {addImg} = this.props
         // const {redirect} = this.state
         // if (redirect){
         //     return<Redirect to='/'/>;
@@ -45,20 +48,29 @@ export default class Wizard extends Component {
                     <div>
                         <div>
                         <p> Image URL </p>
-                        <input value={this.state.img}
-                                     name = "img"
-                                     onChange={this.handleInputChange}/>
+                        <input onChange={(e) => addImg(e.target.value)}/>
                         </div>
                     </div>
 
                     </div>
                     {/* Nav buttons */}
                     <div> 
-                        <button>Previous Step</button>
+                    <Link to='/wizard/step1' >
+                        <button> Previous Step </button>
+                    </Link>
+                    <Link to='/wizard/step3' >
                         <button> Next Step </button>
-
+                    </Link>
                     </div>
                 </div>
         )
     }
 }
+
+function mapStateToProps (state) {
+    return {
+        img: state.img
+    }
+}
+
+export default connect(mapStateToProps, {addImg})(Step2)

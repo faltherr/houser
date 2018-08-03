@@ -1,60 +1,46 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import axios from 'axios'
-import {Redirect} from 'react-router'
+// import axios from 'axios'
+// import {Redirect} from 'react-router'
+import {connect} from 'react-redux'
 
-export default class Wizard extends Component {
-    constructor() {
-        super()
-        this.state = {
-            name: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: 0,
-            redirect: false
-        }
-        this.handleInputChange = this.handleInputChange.bind(this)
-    }
+import {addName,addAddress,addCity,addState,addZip} from '../../ducks/reducer'
 
-    handleInputChange (evt){
-        this.setState({
-            [evt.target.name]:evt.target.value
-        })
-    }
+class Step1 extends Component {
+    render(){
+        const {addName,addAddress,addCity,addState,addZip} = this.props;
+    // handleInputChange (evt){
+    //     this.setState({
+    //         [evt.target.name]:evt.target.value
+    //     })
+    // }
 
-    handleReset = () => {
-        this.setState({
-            name: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: 0,
-            redirect: false
-        })
-    }
+    // handleReset = () => {
+    //     this.setState({
+    //         name: "",
+    //         address: "",
+    //         city: "",
+    //         state: "",
+    //         zip: 0,
+    //         redirect: false
+    //     })
+    // }
 
-    handleAddHouse = () =>{
-        let newHouse = {
-            name : this.state.name,
-            address : this.state.address,
-            city : this.state.city,
-            state : this.state.state,
-            zip : this.state.xip
-        }
-        axios.post('/api/house', newHouse).then(res=>{
-            this.setState({
-                redirect : true
-            })
-            this.handleReset()
-        })
-    }
-
-    render() {
-        const {redirect} = this.state
-        if (redirect){
-            return<Redirect to='/'/>;
-        }
+    // handleAddHouse = () =>{
+    //     let newHouse = {
+    //         name : this.state.name,
+    //         address : this.state.address,
+    //         city : this.state.city,
+    //         state : this.state.state,
+    //         zip : this.state.xip
+    //     }
+    //     axios.post('/api/house', newHouse).then(res=>{
+    //         this.setState({
+    //             redirect : true
+    //         })
+    //         this.handleReset()
+    //     })
+    // }
         return (
             // View contianer
             <div>
@@ -71,52 +57,53 @@ export default class Wizard extends Component {
                     <div>
                         <div>
                             <p>Property name</p>
-                            <input value={this.state.name}
-                                    name="name"
-                                    onChange={this.handleInputChange}/>
+                            <input value={this.props.name} onChange={(e) => addName(e.target.value)}/>
                         </div>
                     
                     <div>
                         <p>Address</p>
-                        <input value={this.state.address}
-                                name="address"
-                                onChange={this.handleInputChange}/>
+                        <input value={this.props.address} onChange={(e) => addAddress(e.target.value)}/>
                     </div>
 
                     {/* container for three input fields as a row */}
                     <div>
                         <div>
                         <p> City </p>
-                        <input value={this.state.city}
-                                     name = "city"
-                                     onChange={this.handleInputChange}/>
+                        <input value={this.props.city} onChange={(e) => addCity(e.target.value)}/>
                         </div>
 
                          <div>
                         <p> State </p>
-                        <input value={this.state.state}
-                                      name ="state"
-                                      onChange={this.handleInputChange}
-                                      maxLength="2"/>
+                        <input value={this.props.state} onChange={(e) => addState(e.target.value)} maxLength="2"/>
                         </div>
 
                         <div>
                         <p> Zip </p>
-                        <input value={this.state.zip}
-                                     name = "zip"
-                                     onChange={this.handleInputChange}/>
+                        <input value={this.props.zip} onChange={(e) => addZip(e.target.value)}/>
                         </div>
                     </div>
 
                     </div>
-                    {/* Complete button */}
+                    {/* Next Button */}
                     <div> 
-
+                    <Link to='/wizard/step2' >
                         <button> Next Step </button>
-
+                    </Link>
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+function mapStateToProps (state) {
+    return {
+        name: state.name,
+        address: state.address,
+        city: state.city,
+        state: state.state,
+        zip: state.zip
+    }
+}
+
+export default connect(mapStateToProps, {addName,addAddress,addCity,addState,addZip})(Step1)

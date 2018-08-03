@@ -15,6 +15,7 @@ app.use(bodyParser.json())
 app.get('/api/house', controller.getHouses)
 app.post('/api/house', controller.addHouse)
 app.delete('/api/house/:id', controller.deleteHouse)
+app.put('/api/house/:id', controller.updateHouse)
 
 const PORT = 4000
 

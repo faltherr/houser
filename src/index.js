@@ -6,14 +6,18 @@ import App from './App';
 // import {Provider} from 'react-redux'
 // import store from './ducks/store'
 import { HashRouter } from 'react-router-dom'
+import { Provider } from "react-redux"
+import Store from './ducks/store'
 
 // <Provider store ={store}>
 // </Provider>
 
 ReactDOM.render(
-    <HashRouter>
-        <App />
-    </HashRouter>
+    <Provider store ={Store}>
+        <HashRouter>
+            <App />
+        </HashRouter>
+    </Provider>
     , document.getElementById('root'));
 
 // registerServiceWorker();

@@ -34,11 +34,28 @@ export default class Dashboard extends Component {
         })
     }
 
+    updateHouse = (id) => {
+        let obj = {
+            name: "",
+            address: "",
+            city: "",
+            state: "",
+            zip: 0
+        }
+
+        axios.put(`/api/list/${id}`, obj).then(response => {
+            this.setState({
+                houses: response.data
+        })
+            this.componentDidMount()
+    })
+    }
+
 
     render() {
         const houses = this.state.houses.map((house, index) => {
             return ( 
-                <House key={index} house ={house} deleteFn={this.deleteHouse}/>
+                <House key={index} house ={house} deleteFn={this.deleteHouse} edit={this.updateHouse}/>
             )
         })
         return (
@@ -49,7 +66,7 @@ export default class Dashboard extends Component {
                     {/* Top sub heading continer 2 row items */}
                     <div>
                     <h1> Dashboard </h1>
-                    <Link to='/wizard' >
+                    <Link to='/wizard/step1' >
                         <button> Add New Property </button>
                     </Link>
                     </div>
