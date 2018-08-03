@@ -7,12 +7,8 @@ export default class Wizard extends Component {
     constructor() {
         super()
         this.state = {
-            name: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: 0,
-            redirect: false
+            mortgageAmt: 0,
+            rent: 0
         }
         this.handleInputChange = this.handleInputChange.bind(this)
     }
@@ -23,16 +19,18 @@ export default class Wizard extends Component {
         })
     }
 
-    handleReset = () => {
-        this.setState({
-            name: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: 0,
-            redirect: false
-        })
-    }
+    // handleReset = () => {
+    //     this.setState({
+    //         mortgageAmt: 0,
+    //         rent: 0,
+    //         name: "",
+    //         address: "",
+    //         city: "",
+    //         state: "",
+    //         zip: 0,
+    //         redirect: false
+    //     })
+    // }
 
     handleAddHouse = () =>{
         let newHouse = {
@@ -46,15 +44,15 @@ export default class Wizard extends Component {
             this.setState({
                 redirect : true
             })
-            this.handleReset()
+            // this.handleReset()
         })
     }
 
     render() {
-        const {redirect} = this.state
-        if (redirect){
-            return<Redirect to='/'/>;
-        }
+        // const {redirect} = this.state
+        // if (redirect){
+        //     return<Redirect to='/'/>;
+        // }
         return (
             // View contianer
             <div>
@@ -70,53 +68,27 @@ export default class Wizard extends Component {
                     {/* Middle content - Column with three divisions */}
                     <div>
                         <div>
-                            <p>Property name</p>
-                            <input value={this.state.name}
-                                    name="name"
-                                    onChange={this.handleInputChange}/>
-                        </div>
-                    
-                    <div>
-                        <p>Address</p>
-                        <input value={this.state.address}
-                                name="address"
-                                onChange={this.handleInputChange}/>
-                    </div>
-
-                    {/* container for three input fields as a row */}
-                    <div>
-                        <div>
-                        <p> City </p>
-                        <input value={this.state.city}
-                                     name = "city"
+                        <p> Monthly Mortgage Amount </p>
+                        <input value={this.state.mortgageAmt}
+                                     name = "mortgageAmt"
                                      onChange={this.handleInputChange}/>
                         </div>
-
-                         <div>
-                        <p> State </p>
-                        <input value={this.state.state}
-                                      name ="state"
-                                      onChange={this.handleInputChange}
-                                      maxLength="2"/>
-                        </div>
-
                         <div>
-                        <p> Zip </p>
-                        <input value={this.state.zip}
-                                     name = "zip"
+                        <p> Desired Monthly Rent</p>
+                        <input value={this.state.rent}
+                                     name = "rent"
                                      onChange={this.handleInputChange}/>
                         </div>
                     </div>
 
                     </div>
-                    {/* Complete button */}
+                    {/* Nav buttons */}
                     <div> 
-
+                        <button>Previous Step</button>
                         <button onClick = {this.handleAddHouse}> Complete </button>
 
                     </div>
                 </div>
-            </div>
         )
     }
 }

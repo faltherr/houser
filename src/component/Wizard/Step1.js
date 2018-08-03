@@ -112,7 +112,7 @@ export default class Wizard extends Component {
                     {/* Complete button */}
                     <div> 
 
-                        <button onClick = {this.handleAddHouse}> Complete </button>
+                        <button> Next Step </button>
 
                     </div>
                 </div>

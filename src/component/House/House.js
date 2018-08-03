@@ -1,9 +1,26 @@
 import React from 'react'
 
-export default function House () {
-    return(
+export default function House(props) {
+    const house = props.house
+    return (
+        // Main property div container
         <div>
-            <h1> House </h1>
+            {/* Left align div */}
+            <div>
+            Property Name: {house.name}
+            <br />
+            Address: {house.address}
+            <br />
+            City: {house.city}
+            <br />
+            State: {house.state}
+            <br />
+            Zip: {house.zip}
             </div>
+            {/* Right align and tope div  for delete*/}
+            <div>
+                <button onClick ={() => {props.deleteFn(props.house.id)}}> X </button>
+            </div>
+        </div>
     )
 }

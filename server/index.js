@@ -10,9 +10,15 @@ require('dotenv').config()
 const {CONNECTION_STRING} = process.env
 // console.log(CONNECTION_STRING)
 
+app.use(bodyParser.json())
+
+app.get('/api/house', controller.getHouses)
+app.post('/api/house', controller.addHouse)
+app.delete('/api/house/:id', controller.deleteHouse)
+
 const PORT = 4000
 
-app.use(bodyParser.json())
+
 
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)

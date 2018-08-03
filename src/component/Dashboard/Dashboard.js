@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import House from '../House/House'
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 // import Routes from '../../route'
 
 
@@ -16,11 +17,28 @@ export default class Dashboard extends Component {
     // getHouses
     // deleteHouses
 
+    componentDidMount(){
+        axios.get('/api/house').then( res =>{
+            console.log(res.data)
+            this.setState({
+                houses: res.data
+            })
+        })
+    }
+
+    deleteHouse = (id) => {
+        axios.delete(`/api/house/${id}`).then(res => {
+            console.log(res.data)
+            console.log("Deleted item")
+            this.componentDidMount()
+        })
+    }
+
 
     render() {
         const houses = this.state.houses.map((house, index) => {
-            return (
-                <div key={house.index}> {house} </div>
+            return ( 
+                <House key={index} house ={house} deleteFn={this.deleteHouse}/>
             )
         })
         return (
@@ -40,12 +58,9 @@ export default class Dashboard extends Component {
                         <div> <h4> Home Listings </h4> </div>
                         {/* List of properties */}
                         <div>
-                            
+                            {houses}
                         </div>
                     </div>    
-                </div>
-                <div>
-                    <House />
                 </div>
             </div>
         )
